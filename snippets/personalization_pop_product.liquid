@@ -1,0 +1,30 @@
+{% if product.vendor == "PersonalizationPop" or product.metafields.global.personalization_pop == 1 %}
+
+
+<div id="widgetModal" class="modal fade" style="display:none;z-index:200000;-webkit-overflow-scrolling: touch;overflow-y:scroll;width:auto;background:none" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+    <div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+      </div>
+      <div class="modal-body" style="max-height:none">
+        <div id="iframe-wrapper" style="-webkit-overflow-scrolling: touch;overflow-y:scroll;">
+          <iframe src="" frameborder="0" ></iframe>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.3/es5-sham.js" type="text/javascript"></script> -->
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.3/es5-shim.js" type="text/javascript"></script> -->
+<!-- <script src="http://127.0.0.1:2000/shopify/public/js/injected.snippet.js" type="text/javascript"></script> -->
+<script src="//personalization-pop.herokuapp.com/shopify/public/js/injected.snippet.js" type="text/javascript"></script>
+
+  <p>
+    <input type="checkbox" id="personalize-checkbox" checked="checked" data-var-id="{{ product.selected_or_first_available_variant.id }}" data-pp-id="{{ product.metafields.global.personalization_pop_id }}"> Personalize it (Free)
+  </p>
+{% endif %}
+

@@ -1,0 +1,55 @@
+{% if settings.slideshow_collection_enabled %}
+  <div id="slide-collection">
+    <div class="bcg"
+        data-bottom-top="background-position: 50% 0px;"
+        data-top-bottom="background-position: 50% -200px;"
+        data-anchor-target="#slide-collection">
+          <div class="hsContainer">
+            <div class="hsContent center">
+              {% if settings.display_collection_header_title %}
+                <div>
+                  <h1 class="headline" style="color:{{settings.banner_color}}">{{ page.title }}</h1>
+                </div>
+              {% endif %}                
+            </div>
+          </div>
+    </div>
+  </div>
+  <a name="pagecontent" id="pagecontent"></a>
+  <div class="container">
+{% else %}
+  <div class="sixteen columns">
+    <h1 class="center">{{ page.title }}</h1>
+    <div class="feature_divider"></div>
+  </div>
+{% endif %}
+
+{% if page.content != blank %}
+  <div class="sixteen columns page">
+    <div class="section clearfix">    
+      {{ page.content }}
+    </div>
+  </div>
+{% endif %}
+
+{% if settings.collection_sidebar %}
+  {% include 'sidebar' %}
+  <div class="twelve columns">
+{% else %}
+  <div class="sixteen columns">
+{% endif %}
+
+
+{% comment %}
+  To display a page of collections, you can use the same method for displaying your 'home page collections' by creating a 'link list' of collections - http://support.outofthesandbox.com/customer/portal/articles/942377
+
+  Below, you'll need to replace "linklist-handle" with the desired handle of your link list. You can find the handle of your link list when you're editing it.
+{% endcomment %}
+
+  
+  {% assign linklist = linklists["linklist-handle"] %}
+  {% assign collections_per_row = settings.frontpage_collections_per_row %}
+  {% include 'collection-loop' with settings.collection_sidebar %}
+
+  <br class="clear" />
+</div>

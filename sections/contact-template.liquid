@@ -1,0 +1,392 @@
+{% if section.settings.banner_image != nil %}
+  {% assign feature_image = true %}
+{% endif %}
+
+{% if section.settings.banner_image != nil %}
+  <div id="slide-contact" class="parallax-banner featured-image--{{ feature_image }} parallax_effect--{{ section.settings.parallax_effect }}">
+    <div class="lazyload bcg"
+      {% if section.settings.parallax_effect %}
+        data-bottom-top="background-position: 50% 0px;"
+        data-top-bottom="background-position: 50% -200px;"
+        data-anchor-target="#slide-contact"
+        data-bgset="  {{ section.settings.banner_image | img_url: '2048x' }} 2048w,
+                      {{ section.settings.banner_image | img_url: '1600x' }} 1600w,
+                      {{ section.settings.banner_image | img_url: '1200x' }} 1200w,
+                      {{ section.settings.banner_image | img_url: '1000x' }} 1000w,
+                      {{ section.settings.banner_image | img_url: '800x' }} 800w,
+                      {{ section.settings.banner_image | img_url: '600x' }} 600w,
+                      {{ section.settings.banner_image | img_url: '400x' }} 400w"
+        data-sizes="100vw"
+      {% endif %}
+        >
+        <div class="hsContainer">
+          {% if section.settings.parallax_effect %}
+            <noscript>
+             <img   alt="{{ section.settings.banner_image.alt }}"
+                    src="{{ section.settings.banner_image | img_url: '2048x' }}"
+                    class="image__fallback"
+                    />
+            </noscript>
+          {% endif %}
+          <img  src="{{ section.settings.banner_image | img_url: '300x' }}"
+                alt="{{ section.settings.banner_image.alt }}"
+                data-src="{{ section.settings.banner_image | img_url: '2048x' }}"
+                class="lazyload lazyload--fade-in hsContainer__image"
+                sizes="100vw"
+                srcset="  {{ section.settings.banner_image | img_url: '2048x' }} 2048w,
+                          {{ section.settings.banner_image | img_url: '1600x' }} 1600w,
+                          {{ section.settings.banner_image | img_url: '1200x' }} 1200w,
+                          {{ section.settings.banner_image | img_url: '1000x' }} 1000w,
+                          {{ section.settings.banner_image | img_url: '800x' }} 800w,
+                          {{ section.settings.banner_image | img_url: '600x' }} 600w,
+                          {{ section.settings.banner_image | img_url: '400x' }} 400w"
+                 />
+          <div class="hsContent">
+            <div class="container">
+              <div class="columns {% if section.settings.contact_text_position == 'left' %} eight offset-by-one {% elsif section.settings.contact_text_position == 'right' %} eight offset-by-eight {% else %} twelve offset-by-two {% endif %} text-align--{{ section.settings.contact_text_alignment }}">
+                {% if section.settings.title != blank %}
+                  <h1 class="headline">{{ section.settings.banner_title | escape }}</h1>
+                {% endif %}
+                {% if section.settings.subtitle != blank %}
+                  <div class="subtitle">
+                    {{ section.settings.subtitle }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+{% endif %}
+
+<div class="container main content main-wrapper">
+  {% if section.settings.banner_image == nil %}
+    <h1 class="center">{{ page.title }}</h1>
+    <div class="feature_divider"></div>
+  {% endif %}
+
+  <div class="contact_form contact-template_contact_form contact_text_position--{{ section.settings.contact_text_position }} contact_text_alignment--{{ section.settings.contact_text_alignment }}">
+    <div class="{% if section.settings.contact_text_position == 'center' %}
+      eight {% else %} seven {% endif %} columns contact_content">
+      {{ page.content }}
+    </div>
+    <div class="eight columns">
+      {% form 'contact' %}
+        {% if form.posted_successfully? %}
+          <p class="quote">{{ 'contact.form.post_success' | t }}</p>
+        {% endif %}
+
+        {% if form.errors %}
+          <p class="quote">{{ 'general.forms.post_error' | t }}</p>
+
+         {% assign message = 'contact.form.message' | t %}
+          <ul class="center">
+            {% for field in form.errors %}
+              {% if field == 'form' %}
+                <li>
+                  {{ form.errors.messages[field] }}
+                </li>
+              {% else %}
+                <li>
+                  {% assign field_name = field | replace: 'body', message %}
+                  {{ 'general.forms.post_field_error_html' | t: field: field_name, error: form.errors.messages[field] }}
+                </li>
+              {% endif %}
+            {% endfor %}
+           </ul>
+        {% endif %}
+
+         <div class="four columns alpha">
+          {% assign name_attr = 'contact.form.name' | handle %}
+          <label for="contactFormName">{{ 'contact.form.name' | t }} <span class="red">*</span></label>
+          <input type="text" id="contactFormName" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.name' | t }}" autocapitalize="words" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.name }}{% endif %}" required="required">
+         </div>
+         <div class="four columns omega">
+          <label for="contactFormEmail">{{ 'contact.form.email' | t }} <span class="red">*</span></label>
+          <input type="email" id="contactFormEmail" name="contact[email]" placeholder="{{ 'contact.form.email' | t }}" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" required="required">
+         </div>
+         {% comment %}
+          {% assign name_attr = 'contact.form.phone' | t | handle %}
+          <label for="contactFormPhone" class="hidden-label">{{ 'contact.form.phone' | t }}</label>
+          <input type="tel" id="contactFormPhone" name="contact[{{ name_attr }}]" placeholder="{{ 'contact.form.phone' | t }}" pattern="[0-9\-]*" value="{% if form[name_attr] %}{{ form[name_attr] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+          {% endcomment %}
+
+        <label for="contactFormMessage">{{ 'contact.form.message' | t }} <span class="red">*</span></label>
+        <textarea rows="5" id="contactFormMessage" name="contact[body]" placeholder="{{ 'contact.form.message' | t }}" required="required">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+
+        {{ section.settings.contact_form_text }}
+
+        <input type="submit" class="submit action_button" value="{{ 'contact.form.send' | t }}" />
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+
+
+{% if section.settings.map_address != blank or section.settings.image != blank %}
+  <br class="clear" />
+  {% include 'map-layout' %}
+{% endif %}
+
+<style>
+  {% if section.settings.parallax_effect %}
+    #slide-contact .hsContainer {
+      height: {{ section.settings.parallax_image_height }}px;
+    }
+
+    @media only screen and (max-width: 798px) {
+      #slide-contact .hsContainer {
+        height: auto;
+      }
+    }
+  {% endif %}
+
+</style>
+
+{% schema %}
+{
+  "name": "Contact page",
+  "class": "contact-template-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Banner Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Image",
+      "info": "1600 x 1000px recommended"
+    },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Heading",
+      "default": "Get in touch"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Subheading"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "contact_text_position",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "contact_text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Map"
+    },
+    {
+      "type": "text",
+      "id": "map_address",
+      "label": "Map address",
+      "info": "Google Maps will find the exact location"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Come and visit"
+    },
+    {
+      "type": "richtext",
+      "id": "address_and_hours",
+      "label": "Address and hours",
+      "default": "<p>123 Fake Street</p><p>Toronto, Canada</p><p>Mon - Fri, 10am - 9pm</p><p>Saturday, 11am - 9pm</p><p>Sunday, 11am - 5pm</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "store_hours",
+      "label": "Show store hours",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "info_text_color",
+      "label": "Text",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "info_color",
+      "label": "Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "Displayed if the map isn’t loaded"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "map_position",
+      "label": "Info position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "zoom_level",
+      "min": 1,
+      "max": 20,
+      "step": 1,
+      "unit": "x",
+      "label": "Map zoom level",
+      "default": 12
+    },
+    {
+      "type": "richtext",
+      "id": "contact_form_text",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "API key"
+    },
+    {
+      "type": "text",
+      "id": "api_key",
+      "label": "Google Maps API key",
+      "info": "You’ll need to [register a Google Maps API Key](https://help.shopify.com/manual/using-themes/troubleshooting/map-section-api-key) to display the map"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pin",
+      "label": "Show pin",
+      "info": "Requires use of API key",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Map link label",
+      "info": "Requires use of API key",
+      "default": "Directions"
+    },
+    {
+      "type": "select",
+      "id": "map_style",
+      "label": "Map color scheme",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "aubergine",
+          "label": "Aubergine"
+        },
+        {
+          "value": "night",
+          "label": "Night"
+        },
+        {
+          "value": "retro",
+          "label": "Retro"
+        },
+        {
+          "value": "silver",
+          "label": "Silver"
+        }
+      ],
+      "default": "default",
+      "info": "Requires use of API key"
+    },
+    {
+      "type": "header",
+      "content": "Parallax"
+    },
+    {
+      "type": "checkbox",
+      "id": "parallax_effect",
+      "label": "Enable parallax scrolling",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "parallax_image_height",
+      "label": "Parallax section height",
+      "min": 300,
+      "max": 1000,
+      "step": 20,
+      "default": 400,
+      "unit": "px"
+    }
+  ]
+}
+{% endschema %}

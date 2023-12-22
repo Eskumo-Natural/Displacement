@@ -1,0 +1,261 @@
+{% if section.blocks.size > 0 %}
+  <section id="homepage_slider-{{section.id}}" class="parallax-banner flexslider homepage_slider animation--fade {% if section.settings.image_stretch == false %}sixteen columns{% endif %} parallax_effect--{{ section.settings.parallax_effect }} slider-loading"
+        data-slider-id="homepage_slider-{{section.id}}"
+        data-slideshow-animation="fade"
+        data-slideshow-speed="{{section.settings.slideshow_speed}}">
+    <ul class="slides">
+      {% for block in section.blocks %}
+          <li {{ block.shopify_attributes }} data-block-id="{{block.id}}">
+            <div id="slider-{{ block.id }}" class="slide">
+              {% capture i %}{% cycle "1", "2" %}{% endcapture %}
+              <div class="lazyload bcg {% if block.settings.image == nil %}bcg-placeholder{% endif %}"
+                {% if section.settings.parallax_effect %}
+                  {% if block.settings.image != nil %}
+                    data-bgset="  {{ block.settings.image | img_url: '2048x' }} 2048w,
+                                  {{ block.settings.image | img_url: '1600x' }} 1600w,
+                                  {{ block.settings.image | img_url: '1200x' }} 1200w,
+                                  {{ block.settings.image | img_url: '1000x' }} 1000w,
+                                  {{ block.settings.image | img_url: '800x' }} 800w,
+                                  {{ block.settings.image | img_url: '600x' }} 600w,
+                                  {{ block.settings.image | img_url: '400x' }} 400w"
+                    data-sizes="100vw"
+                  {% else %}
+                    style="background-image:url({{ 'placeholder.svg' | asset_url }})"
+                  {% endif %}
+                  data-bottom-top="background-position: 50% 10vh;"
+                  data-top-bottom="background-position: 50% -10vh;"
+                  data-anchor-target="#slider-{{ block.id }}"
+                  {% endif %}
+                  >
+                  <div class="hsContainer">
+                    {% if section.settings.parallax_effect %}
+                      <noscript>
+                       <img   alt="{{ block.settings.image.alt }}"
+                              src="{{ block.settings.image | img_url: '2048x' }}"
+                              class="image__fallback"
+                              />
+                      </noscript>
+                    {% endif %}
+                    <img  alt="{{ block.settings.image.alt }}"
+                          {% if block.settings.image != nil %}
+                            src="{{ block.settings.image | img_url: '300x' }}"
+                            data-src="{{ block.settings.image | img_url: '2048x' }}"
+                            class="lazyload lazyload--fade-in hsContainer__image"
+                            sizes="100vw"
+                            srcset="  {{ block.settings.image | img_url: '2048x' }} 2048w,
+                                      {{ block.settings.image | img_url: '1600x' }} 1600w,
+                                      {{ block.settings.image | img_url: '1200x' }} 1200w,
+                                      {{ block.settings.image | img_url: '1000x' }} 1000w,
+                                      {{ block.settings.image | img_url: '800x' }} 800w,
+                                      {{ block.settings.image | img_url: '600x' }} 600w,
+                                      {{ block.settings.image | img_url: '400x' }} 400w"
+                          {% else %}
+                            src="{{ 'placeholder.svg' | asset_url }}"
+                            class="hsContainer__image"
+                          {% endif %}
+                           />
+                      <div class="hsContent">
+                        {% if block.settings.link != blank and block.settings.button_label == blank %}
+                          <a href="{{ block.settings.link }}" class="full-link">
+                            {{ block.settings.link }}
+                          </a>
+                        {% endif %}
+                        <div class="container">
+                          <div class="columns {% if block.settings.text_position == 'left' %} eight offset-by-one {% elsif block.settings.text_position == 'right' %} eight offset-by-eight {% else %} twelve offset-by-two {% endif %} align_{{ block.settings.text_alignment }}">
+                            {% if forloop.first == true and block.settings.title != blank %}
+                              <h1 class="headline">
+                                {{ block.settings.title | escape }}
+                              </h1>
+                            {% elsif block.settings.title != blank %}
+                              <p class="headline">
+                                {{ block.settings.title | escape }}
+                              </p>
+                            {% endif %}
+                            {% if block.settings.subtitle != blank %}
+                              <div class="subtitle">
+                                <p>{{ block.settings.subtitle }}</p>
+                              </div>
+                            {% endif %}
+                            {% if block.settings.button_label != blank %}
+                              <a {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %} class="action_button">
+                                {{ block.settings.button_label | escape }}
+                              </a>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </li>
+        {% endfor %}
+    </ul>
+  </section>
+{% endif %}
+
+<style>
+  {% if section.settings.parallax_effect %}
+    #homepage_slider-{{ section.id }} .hsContainer {
+      height: {{ section.settings.parallax_image_height }}px;
+    }
+  {% endif %}
+
+  @media only screen and (max-width: 798px) {
+    {% if settings.slideshow_images_crop %}
+      #homepage_slider-{{ section.id }} .hsContainer {
+        height: {{ section.settings.parallax_image_height | divided_by: 2 }}px;
+      }
+    {% else %}
+      #homepage_slider-{{ section.id }} .hsContainer {
+        height: auto;
+      }
+      .flexslider.parallax_effect--true img { display: block; }
+    {% endif %}
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Slideshow",
+  "class": "slideshow-section under-menu",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "range",
+      "id": "slideshow_speed",
+      "label": "Change slides every",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "unit": "sec"
+    },
+    {
+      "type": "header",
+      "content": "Parallax"
+    },
+    {
+      "type": "checkbox",
+      "id": "parallax_effect",
+      "label": "Enable parallax scrolling",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "parallax_image_height",
+      "label": "Parallax section height",
+      "min": 300,
+      "max": 1000,
+      "step": 20,
+      "default": 600,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "1600 x 1000px recommended"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Your headline here"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subheading",
+          "default": "This is a short subheading for your slideshow image"
+        },
+        {
+          "type": "select",
+          "id": "text_position",
+          "label": "Text position",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "options": [
+            {
+              "value": "left",
+              "label": "Left"
+            },
+            {
+              "value": "center",
+              "label": "Center"
+            },
+            {
+              "value": "right",
+              "label": "Right"
+            }
+          ],
+          "default": "center"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Slide link"
+        }
+      ]
+    }
+  ],
+  "presets": [{
+    "name": "Slideshow",
+    "category": "Image",
+    "settings": {
+    },
+    "blocks": [
+      {
+        "type": "image",
+        "settings": {
+          "image": "",
+          "title": "Parallax Shopify Theme",
+          "subtitle": "",
+          "text_alignment": "center",
+          "button_label": "",
+          "link": ""
+        }
+      },
+      {
+        "type": "image",
+          "settings": {
+          "image": "",
+          "title": "",
+          "subtitle": "",
+          "text_alignment": "center",
+          "button_label": "",
+          "link": ""
+        }
+      }
+    ]
+  }]
+}
+{% endschema %}
