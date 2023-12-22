@@ -1,0 +1,130 @@
+<div class="container">
+  <div class="sixteen columns">
+    <div class="homepage_content section clearfix image_with_text image-text--align-{{ section.settings.layout }}">
+      {% capture image_layout %}
+        <div class="eight columns image_column {% if section.settings.layout == 'left' %}alpha animate_left{% else %}omega animate_right{% endif %}">
+          {% if section.settings.image != blank %}
+            <img  src="{{ section.settings.image | img_url: '300x' }}"
+                  alt="{{ section.settings.image.alt }}"
+                  data-src="{{ section.settings.image | img_url: '2048x' }}"
+                  class="lazyload lazyload--fade-in"
+                  data-sizes="auto"
+                  data-srcset=" {{ section.settings.image | img_url: '2048x' }} 2048w,
+                                {{ section.settings.image | img_url: '1600x' }} 1600w,
+                                {{ section.settings.image | img_url: '1200x' }} 1200w,
+                                {{ section.settings.image | img_url: '1000x' }} 1000w,
+                                {{ section.settings.image | img_url: '800x' }} 800w,
+                                {{ section.settings.image | img_url: '600x' }} 600w,
+                                {{ section.settings.image | img_url: '400x' }} 400w"
+                   />
+          {% else %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+          {% endif %}
+        </div>
+      {% endcapture %}
+
+      {% if section.settings.layout == 'left' %}
+        {{ image_layout }}
+      {% endif %}
+
+      <div class="seven columns content_column {% if section.settings.layout == 'left' %}offset-by-one omega{% else %}offset-by-one-alternate alpha{% endif %} text-align--{{section.settings.text_alignment}}">
+        {% if section.settings.title != blank %}
+          <h3>
+            {{ section.settings.title | escape }}
+          </h3>
+        {% endif %}
+        {% if section.settings.text != blank %}
+          {{ section.settings.text }}
+        {% endif %}
+        {% if section.settings.button_label != blank %}
+          <a {% if section.settings.button_link != blank %}href="{{ section.settings.button_link }}"{% endif %} class="action_button">
+            {{ section.settings.button_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+
+      {% if section.settings.layout == 'right' %}
+        {{ image_layout }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Image with text",
+    "class": "image-with-text-section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image",
+        "info": "1600 x 1000px recommended"
+      },
+      {
+        "type": "select",
+        "id": "layout",
+        "label": "Image position",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Image with text"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Pair text with an image to give focus to your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>"
+      },
+      {
+        "type": "select",
+        "id": "text_alignment",
+        "label": "Text alignment",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ],
+        "default": "left"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button label"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button link"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Image with text",
+        "category": "Image"
+      }
+    ]
+  }
+{% endschema %}

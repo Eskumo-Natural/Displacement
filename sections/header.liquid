@@ -1,0 +1,515 @@
+{% if section.settings.promo_text != blank and section.settings.show_announcement %}
+  {% if section.settings.promo_home_page and template.name == 'index' %}
+    <div class="promo_banner js-promo_banner--index sticky-promo--{{ section.settings.fixed_header }}">
+      {% if section.settings.announcement_link %}<a href="{{ section.settings.announcement_link }}" >{% endif %}
+        <p>{{ section.settings.promo_text }}</p>
+      {% if section.settings.announcement_link %}</a>{% endif %}
+    </div>
+  {% elsif section.settings.promo_home_page == false %}
+    <div class="promo_banner js-promo_banner--global sticky-promo--{{ section.settings.fixed_header }}">
+      {% if section.settings.announcement_link %}<a href="{{ section.settings.announcement_link }}">{% endif %}
+        <p>{{ section.settings.promo_text }}</p>
+      {% if section.settings.announcement_link %}</a>{% endif %}
+    </div>
+  {% endif %}
+{% endif %}
+
+<div id="header" class="mm-fixed-top Fixed mobile-header mobile-sticky-header--{{ section.settings.fixed_header }}" data-search-enabled="{{ section.settings.search_enabled }}">
+  <a href="#nav" class="icon-menu" aria-haspopup="true" aria-label="{{ 'layout.general.menu' | t }}"><span>{{ 'layout.general.menu' | t }}</span></a>
+  <a href="{{ shop.url }}" title="{{ shop.name }}" class="mobile_logo logo">
+    {% if section.settings.logo_mobile != nil %}
+      <img src="{{ section.settings.logo_mobile | img_url: '410x' }}" alt="{{ shop.name }}" />
+    {% elsif section.settings.logo != nil %}
+      <img src="{{ section.settings.logo | img_url: '410x' }}" alt="{{ shop.name }}" />
+    {% else %}
+      {{ shop.name }}
+    {% endif %}
+  </a>
+  <a href="#cart" class="icon-cart cart-button right"><span>{{ cart.item_count }}</span></a>
+</div>
+
+<div class="hidden">
+  <div id="nav">
+    <ul>
+      {% for link in linklists[section.settings.main_linklist].links %}
+        {% if link.links == blank %}
+          <li {% if link.active %}class="Selected"{% endif %}><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {% else %}
+          <li {% if link.active %}class="Selected"{% endif %}>
+            {% if link.url == 'http://' or link.url == '' or link.url == '/' or link.url == 'https://' or link.url == '#' %}
+              <span>{{ link.title }}</span>
+            {% else %}
+              <a href="{{ link.url }}">{{ link.title }}</a>
+            {% endif %}
+            <ul>
+              {% for sub_link in link.links %}
+                {% if sub_link.links == blank %}
+                  <li {% if sub_link.active %}class="Selected"{% endif %}><a href="{{ sub_link.url }}">{{ sub_link.title }}</a></li>
+                {% else %}
+                <li {% if sub_link.active %}class="Selected"{% endif %}>
+                  {% if sub_link.url == 'http://' or sub_link.url == '' or sub_link.url == '/' or sub_link.url == 'https://' or sub_link.url == '#' %}
+                    <span>{{ sub_link.title }}</span>
+                  {% else %}
+                    <a href="{{ sub_link.url }}">{{ sub_link.title }}</a>
+                  {% endif %}
+                  <ul>
+                    {% for sub_sub_link in sub_link.links %}
+                      <li {% if sub_sub_link.active %}class="Selected"{% endif %}><a href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </li>
+        {% endif %}
+      {% endfor %}
+      {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          <li>
+            <a href="/account">{{ customer.name }}</a>
+          </li>
+          <li>
+            {{ 'layout.customer.log_out' | t | customer_logout_link }}
+          </li>
+        {% else %}
+          <li>
+            {{ 'layout.customer.log_in' | t | customer_login_link }}
+          </li>
+        {% endif %}
+      {% endif %}
+      {% if settings.show_multiple_currencies %}
+        <li class="currencies">
+          {% include 'currencies-switcher' %}
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <form action="/checkout" method="post" id="cart">
+    <ul data-money-format="{{ shop.money_format }}" data-shop-currency="{{ shop.currency }}" data-shop-name="{{ shop.name | escape }}">
+      <li class="mm-subtitle"><a class="continue ss-icon" href="#cart"><span class="icon-close"></span></a></li>
+
+      {% if cart.item_count == 0 %}
+        <li class="empty_cart">{{ 'layout.general.empty_cart' | t }}</li>
+      {% else %}
+        {% for item in cart.items %}
+          <li class="cart_item {% if forloop.last %}last_cart_item{% endif %}">
+            <p class="mm-counter">
+              <span class="icon-minus minus"></span><input type="number" min="0" class="quantity" name="updates[]" id="updates_{{ item.id }}" value="{{ item.quantity }}" data-line-id="{{ forloop.index }}" readonly /><span class="icon-plus plus"></span>
+            </p>
+            <a href="{{ item.url }}">
+              {% if item.image %}
+                <div class="cart_image">
+                  <img src="{{ item | img_url: '410x' }}" alt="{{ item.title | escape }}" />
+                </div>
+              {% endif %}
+              <div class="item_info">
+                {{ item.product.title }}
+                {% unless item.product.has_only_default_variant or item.variant.title contains "Title" %}
+                  {% for option in item.product.options %}
+                    {% if forloop.first %}- {% endif %}{{ item.variant.options[forloop.index0] }} {% unless forloop.last %}/{% endunless %}
+                  {% endfor %}
+                {% endunless %}
+				{% render 'paywhirl-subscriptions-cart-selling-plans', item: item %}
+                {% if item.properties %}
+                  {% for p in item.properties %}
+                    {% if p.last != blank %}
+                      <div class="line-item">
+                        {{ p.first }}: {{ p.last }}
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                <div class="price">
+                  <span class="money">{{ item.price | money }}</span>
+                </div>
+              </div>
+            </a>
+          </li>
+        {% endfor %}
+        <li class="mm-label">
+          <p class="mm-counter price">
+            <span class="money">{{ cart.total_price | money }}</span>
+          </p>
+          <a href="/cart">
+            <strong>{{ 'layout.general.subtotal' | t }}</strong>
+          </a>
+        </li>
+
+        <li class="mm-subtitle clearfix">
+          {% if settings.display_special_instructions %}
+            <textarea id="cart-note" name="note" rows="2" placeholder="{{ 'layout.general.cart_note' | t }}" class="clearfix">{{ cart.note }}</textarea>
+          {% endif %}
+
+          {% if settings.display_tos_checkbox %}
+            <aside class="tos tos_checkbox">
+              <input type="checkbox" class="tos_agree" id="sliding_agree" required />
+              <label class="tos_label" for="sliding_agree">
+                {{ settings.tos_richtext }}
+              </label>
+            </aside>
+          {% endif %}
+
+          <input type="submit" class="action_button {% if settings.display_view_cart or settings.side_cart_position == "bottom" %}right{% else %}full-width{% endif %}" value="{{ 'layout.general.checkout' | t }}" />
+          {% if settings.display_view_cart %}
+          	<a href="/cart" class="action_button edit_cart right">{{ 'layout.general.edit_cart' | t }}</a>
+          {% endif %}
+        </li>
+      {% endif %}
+    </ul>
+  </form>
+</div>
+
+{% if template contains "index" %}
+  {% assign feature_image = true %}
+{% elsif template contains "collection" %}
+  {% assign feature_image = true %}
+{% elsif template contains "blog" %}
+  {% assign feature_image = true %}
+{% elsif template contains "article" %}
+  {% assign feature_image = true %}
+{% elsif template contains "contact" %}
+  {% assign feature_image = true %}
+{% else %}
+  {% assign feature_image = false %}
+{% endif %}
+
+<div class="header
+            header-background--{{ settings.header_background }}
+            header-transparency--{{ settings.transparent_header }}
+            sticky-header--{{ section.settings.fixed_header }}
+            {% if section.settings.fixed_header %}
+              mm-fixed-top
+            {% else %}
+              is-absolute
+            {% endif %}
+            {% if feature_image %}
+              is-absolute
+            {% endif %}
+            {% if template contains 'index' %}
+              animated fadeIn
+            {% endif %}
+            {% if settings.header_background %}
+              header_bar
+            {% elsif feature_image %}
+            {% else %}
+              header_bar
+            {% endif %}" data-dropdown-position="{{ section.settings.dropdown_position }}">
+
+  <div class="container">
+    <div class="three columns logo {% if section.settings.logo_home != nil %}secondary-logo--true{% endif %}">
+      <a href="{{ shop.url }}" title="{{ shop.name }}">
+        {% if section.settings.logo != nil or section.settings.logo_home != nil %}
+          {% if section.settings.logo != nil %}
+            <img src="{{ section.settings.logo | img_url: '410x' }}" alt="{{ shop.name }}" class="primary_logo" />
+          {% endif %}
+
+          {% if section.settings.logo_home != nil %}
+            <img src="{{ section.settings.logo_home | img_url: '410x' }}" alt="{{ shop.name }}" class="{% if section.settings.logo != nil %}secondary_logo{% else %}primary_logo{% endif %}" />
+          {% endif %}
+        {% else %}
+          {{ shop.name }}
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="thirteen columns nav mobile_hidden">
+      <ul class="menu right">
+        {% if settings.show_multiple_currencies %}
+          <li class="currencies">
+            {% include 'currencies-switcher' %}
+          </li>
+        {% endif %}
+        {% if shop.customer_accounts_enabled %}
+          <li class="header-account">
+            <a href="/account" title="{{ 'layout.customer.my_account' | t }} {% if customer %}({{ customer.email }}){% endif %}">{% if customer %}{{ 'layout.customer.my_account' | t }}{% else %}{{ 'layout.customer.log_in' | t }}{% endif %}</a>
+          </li>
+        {% endif %}
+        {% if section.settings.search_enabled %}
+          <li class="search">
+            <a href="/search" title="{{ 'general.search.title' | t }}" id="search-toggle"><span class="icon-search"></span></a>
+          </li>
+        {% endif %}
+        <li class="cart">
+          <a href="#cart" class="icon-cart cart-button"><span>{{ cart.item_count }}</span></a>
+          <a href="/cart" class="icon-cart cart-button no-js-only"><span>{{ cart.item_count }}</span></a>
+        </li>
+      </ul>
+
+      <ul class="menu {{ section.settings.menu_alignment }}" role="navigation">
+        {% assign main_menu = linklists[section.settings.main_linklist] %}
+        {% for link in main_menu.links %}
+          {% if linklists[link.handle] == empty %}
+            <li>
+              <a href="{{ link.url }}" class="top-link {% if link.active %}active{% endif %}">{{ link.title }}</a>
+            </li>
+          {% else %}
+
+            {% assign column_threshold = section.settings.dropdown_column_links %}
+            {% assign count = 0 %}
+            {% assign split = false %}
+            {% for sub_link in link.links %}
+              {% assign count = count | plus: 1 %}
+              {% for sub_sub_link in sub_link.links %}
+                {% assign count = count | plus: 1 %}
+              {% endfor %}
+            {% endfor %}
+
+            <li class="sub-menu" aria-haspopup="true" aria-expanded="false">
+              <a href="{{ link.url }}" class="dropdown-link {% if link.active or link.child_active %}active{% endif %}">{{ link.title }}
+              <span class="icon-arrow-down"></span></a>
+              <div class="dropdown animated fadeIn {% if count > column_threshold %}dropdown-wide {% if forloop.last %}dropdown-left{% endif %}{% endif %}">
+                <div class="dropdown-links clearfix">
+                  <ul>
+                    {% assign count = 0 %}
+                    {% assign split = false %}
+                    {% for sub_link in link.links %}
+                      {% assign count = count | plus: 1 %}
+                      <li><a href="{{ sub_link.url }}">{{ sub_link.title }}</a></li>
+                      {% for sub_sub_link in sub_link.links %}
+                        {% assign count = count | plus: 1 %}
+                        <li>
+                          <a class="sub-link" href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a>
+                        </li>
+                      {% endfor %}
+
+                      {% if count >= column_threshold and split == false %}
+                        {% assign split = true %}
+                        </ul>
+                        <ul>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  div.promo_banner {
+    background-color: {{ section.settings.announcement_bg_color }};
+    color: {{ section.settings.announcement_text_color }};
+  }
+  div.promo_banner a {
+    color: {{ section.settings.announcement_text_color }};
+  }
+  div.logo img {
+    width: {{ section.settings.logo_width }}px;
+    max-width: 100%;
+    max-height: 200px;
+    display: block;
+  }
+  .mm-title img {
+    max-width: 100%;
+    max-height: 60px;
+  }
+  .header div.logo a {
+    padding-top: {{ section.settings.logo_top_padding }}px;
+    padding-bottom: {{ section.settings.logo_top_padding }}px;
+  }
+  {% if section.settings.menu_top_padding %}
+    .nav ul.menu {
+      padding-top: {{ section.settings.menu_top_padding }}px;
+    }
+  {% endif %}
+
+  div.content {
+    padding: {{ section.settings.content_top_padding }}px 0px 0px 0px;
+  }
+
+  @media only screen and (max-width: 798px) {
+    div.content {
+      padding-top: 20px;
+    }
+  }
+
+  {% if section.settings.dropdown_position == "below_parent" %}
+    .dropdown {
+      margin-top: -10px;
+      z-index: 100;
+    }
+    .dropdown-links {
+      margin-top: 10px;
+    }
+  {% endif %}
+
+</style>
+
+{% schema %}
+
+{
+  "name": "Header",
+  "class": "header-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "fixed_header",
+      "label": "Fixed ('sticky') header",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "content_top_padding",
+      "label": "Content area top padding ([?](https://help.outofthesandbox.com/hc/en-us/articles/115006910627))",
+      "min": 50,
+      "max": 300,
+      "step": 5,
+      "default": 150,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Announcement bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement"
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_home_page",
+      "label": "Home page only"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Text"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Link"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bg_color",
+      "label": "Bar",
+      "default": "#1b1f23"
+    },
+    {
+      "type": "color",
+      "id": "announcement_text_color",
+      "label": "Text",
+      "default": "#6b6b6b"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo",
+      "info": "410px wide recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_home",
+      "label": "Secondary logo over content (optional)",
+      "info": "410px wide recommended"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_mobile",
+      "label": "Mobile logo (optional)",
+      "info": "410px wide recommended"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo display width",
+      "step": 5,
+      "min": 105,
+      "max": 205,
+      "default": 205,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "logo_top_padding",
+      "label": "Logo top padding ([?](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115006910627))",
+      "min": 0,
+      "max": 30,
+      "default": 5,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "main_linklist",
+      "label": "Main menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "range",
+      "id": "dropdown_column_links",
+      "label": "Number of dropdown links in first column",
+      "min": 5,
+      "max": 30,
+      "default": 10
+    },
+    {
+      "type": "select",
+      "id": "dropdown_position",
+      "label": "Dropdown position",
+      "options": [
+        {
+          "value": "below_parent",
+          "label": "Below parent link"
+        },
+        {
+          "value": "below_header",
+          "label": "Below header"
+        }
+      ],
+      "default": "below_header"
+    },
+    {
+      "type": "select",
+      "id": "menu_alignment",
+      "label": "Menu alignment",
+      "options": [
+        {
+          "value": "align_left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "align_right",
+          "label": "Right"
+        }
+      ],
+      "default": "align_left"
+    },
+    {
+      "type": "range",
+      "id": "menu_top_padding",
+      "label": "Navigation top padding ([?](https://help.outofthesandbox.com/hc/en-us/articles/115006910627))",
+      "min": 0,
+      "max": 30,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "search_enabled",
+      "label": "Enable search",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,238 @@
+<section class="parallax-banner parallax-slide slide parallax_effect--{{ section.settings.parallax_effect }}" id="slide-{{ section.id }}">
+  <div  class="lazyload bcg {% if section.settings.image == nil %}bcg-placeholder{% endif %}"
+      {% if section.settings.parallax_effect %}
+        {% if section.settings.image != nil %}
+          data-bgset="  {{ section.settings.image | img_url: '2048x' }} 2048w,
+                        {{ section.settings.image | img_url: '1600x' }} 1600w,
+                        {{ section.settings.image | img_url: '1200x' }} 1200w,
+                        {{ section.settings.image | img_url: '1000x' }} 1000w,
+                        {{ section.settings.image | img_url: '800x' }} 800w,
+                        {{ section.settings.image | img_url: '600x' }} 600w,
+                        {{ section.settings.image | img_url: '400x' }} 400w"
+          data-sizes="100vw"
+        {% else %}
+          style="background-image:url({{ 'placeholder.svg' | asset_url }})"
+        {% endif %}
+        data-bottom-top="background-position: 50% 10vh;"
+        data-top-bottom="background-position: 50% -10vh;"
+      {% endif %}
+      >
+      <div class="hsContainer">
+        {% if section.settings.parallax_effect %}
+          <noscript>
+           <img   alt="{{ section.settings.image.alt }}"
+                  src="{{ section.settings.image | img_url: '2048x' }}"
+                  class="image__fallback"
+                  />
+          </noscript>
+        {% endif %}
+        <img  alt="{{ section.settings.image.alt }}"
+              {% if section.settings.image != nil %}
+                src="{{ section.settings.image | img_url: '300x' }}"
+                data-src="{{ section.settings.image | img_url: '2048x' }}"
+                class="lazyload lazyload--fade-in hsContainer__image"
+                sizes="100vw"
+                srcset="  {{ section.settings.image | img_url: '2048x' }} 2048w,
+                          {{ section.settings.image | img_url: '1600x' }} 1600w,
+                          {{ section.settings.image | img_url: '1200x' }} 1200w,
+                          {{ section.settings.image | img_url: '1000x' }} 1000w,
+                          {{ section.settings.image | img_url: '800x' }} 800w,
+                          {{ section.settings.image | img_url: '600x' }} 600w,
+                          {{ section.settings.image | img_url: '400x' }} 400w"
+              {% else %}
+                src="{{ 'placeholder.svg' | asset_url }}"
+                class="hsContainer__image"
+              {% endif %}
+               />
+        <div class="hsContent">
+          {% if section.settings.link != blank and section.settings.button_label == blank %}
+            <a href="{{ section.settings.link }}" class="full-link">
+              {{ section.settings.link }}
+            </a>
+          {% endif %}
+          <div class="container">
+            <div class="columns {% if section.settings.text_position == 'left' %} eight offset-by-one {% elsif section.settings.text_position == 'right' %} eight offset-by-eight {% else %} twelve offset-by-two {% endif %} align_{{ section.settings.text_alignment }}">
+              <div class="{{ section.settings.headline_animation }}">
+                {% if section.settings.title != blank %}
+                  <h1 class="headline">
+                    {{ section.settings.title | escape }}
+                  </h1>
+                {% endif %}
+                {% if section.settings.subtitle != blank %}
+                  <div class="subtitle">
+                    {{ section.settings.subtitle }}
+                  </div>
+                {% endif %}
+                {% if section.settings.button_label != blank %}
+                  <a {% if section.settings.link != blank %}href="{{ section.settings.link }}"{% endif %} class="action_button">
+                    {{ section.settings.button_label | escape }}
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          {% if section.settings.homepage_arrow %}
+            <a href="#slide-{{ section.id }}-content" class="scroll-arrow scroll-animate_down">
+              <span class="icon-arrow-down"></span>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+  </div>
+</section>
+<a name="slide-{{ section.id }}-content" id="slide-{{ section.id }}-content"></a>
+
+<style>
+  {% if section.settings.parallax_effect %}
+    #slide-{{ section.id }} .hsContainer {
+      height: {{ section.settings.parallax_image_height }}px;
+    }
+  {% endif %}
+
+
+  @media only screen and (max-width: 798px) {
+    {% if settings.slideshow_images_crop %}
+      #slide-{{ section.id }} .hsContainer {
+        height: {{ section.settings.parallax_image_height | divided_by: 2 }}px;
+      }
+    {% else %}
+      #slide-{{ section.id }} .hsContainer {
+        height: auto;
+      }
+    {% endif %}
+  }
+
+</style>
+
+{% schema %}
+{
+  "name": "Image with text overlay",
+  "class": "image-with-text-overlay-section under-menu",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image",
+      "info": "1600 x 1000px recommended"
+    },
+    {
+      "type": "select",
+      "id": "headline_animation",
+      "label": "Heading text animation",
+      "options": [
+        {
+          "value": "",
+          "label": "None"
+        },
+        {
+          "value": "animate_in",
+          "label": "Fade In"
+        },
+        {
+          "value": "animate_up",
+          "label": "Fade Up"
+        },
+        {
+          "value": "animate_down",
+          "label": "Fade Down"
+        }
+      ],
+      "default": "animate_down"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Your headline here"
+    },
+    {
+      "type": "richtext",
+      "id": "subtitle",
+      "label": "Text",
+      "default": "<p>This is a short subheading for your banner image</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_position",
+      "label": "Text position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "homepage_arrow",
+      "label": "Show scroll down arrow",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Parallax"
+    },
+    {
+      "type": "checkbox",
+      "id": "parallax_effect",
+      "label": "Enable parallax scrolling",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "parallax_image_height",
+      "label": "Parallax section height",
+      "min": 300,
+      "max": 1000,
+      "step": 20,
+      "default": 600,
+      "unit": "px"
+    }
+  ],
+  "presets": [{
+    "name": "Image with text overlay",
+    "category": "Image",
+    "settings": {
+    }
+  }]
+}
+{% endschema %}
