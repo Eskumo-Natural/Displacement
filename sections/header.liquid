@@ -197,8 +197,13 @@
               header_bar
             {% endif %}" data-dropdown-position="{{ section.settings.dropdown_position }}">
 
+<<<<<<< HEAD
   <div class="container" style="width: 90%">
     <div class="three columns logo {% if section.settings.logo_home != nil %}secondary-logo--true{% endif %}" style="float: left">
+=======
+  <div class="container">
+    <div class="three columns logo {% if section.settings.logo_home != nil %}secondary-logo--true{% endif %}">
+>>>>>>> ba0872ed8a8be55c3f998c8f63ab1705ab977ab8
       <a href="{{ shop.url }}" title="{{ shop.name }}">
         {% if section.settings.logo != nil or section.settings.logo_home != nil %}
           {% if section.settings.logo != nil %}
@@ -213,17 +218,52 @@
         {% endif %}
       </a>
     </div>
+<<<<<<< HEAD
     
     <div class="thirteen columns nav mobile_hidden" style="width: 72%; float: right; display: flex; justify-content: space-between;">
       <ul class="menu {{ section.settings.menu_alignment }}" role="navigation" style="display: flex; margin-right: 3em; flex-grow: 1;">
+=======
+
+    <div class="thirteen columns nav mobile_hidden">
+      <ul class="menu right">
+        {% if settings.show_multiple_currencies %}
+          <li class="currencies">
+            {% include 'currencies-switcher' %}
+          </li>
+        {% endif %}
+        {% if shop.customer_accounts_enabled %}
+          <li class="header-account">
+            <a href="/account" title="{{ 'layout.customer.my_account' | t }} {% if customer %}({{ customer.email }}){% endif %}">{% if customer %}{{ 'layout.customer.my_account' | t }}{% else %}{{ 'layout.customer.log_in' | t }}{% endif %}</a>
+          </li>
+        {% endif %}
+        {% if section.settings.search_enabled %}
+          <li class="search">
+            <a href="/search" title="{{ 'general.search.title' | t }}" id="search-toggle"><span class="icon-search"></span></a>
+          </li>
+        {% endif %}
+        <li class="cart">
+          <a href="#cart" class="icon-cart cart-button"><span>{{ cart.item_count }}</span></a>
+          <a href="/cart" class="icon-cart cart-button no-js-only"><span>{{ cart.item_count }}</span></a>
+        </li>
+      </ul>
+
+      <ul class="menu {{ section.settings.menu_alignment }}" role="navigation">
+>>>>>>> ba0872ed8a8be55c3f998c8f63ab1705ab977ab8
         {% assign main_menu = linklists[section.settings.main_linklist] %}
         {% for link in main_menu.links %}
           {% if linklists[link.handle] == empty %}
             <li>
+<<<<<<< HEAD
               <a href="{{ link.url }}" class="top-link {% if link.active %}active{% endif %}" style=" padding: 0.75rem;  ">{{ link.title }}</a>
             </li>
           {% else %}
   
+=======
+              <a href="{{ link.url }}" class="top-link {% if link.active %}active{% endif %}">{{ link.title }}</a>
+            </li>
+          {% else %}
+
+>>>>>>> ba0872ed8a8be55c3f998c8f63ab1705ab977ab8
             {% assign column_threshold = section.settings.dropdown_column_links %}
             {% assign count = 0 %}
             {% assign split = false %}
@@ -233,7 +273,11 @@
                 {% assign count = count | plus: 1 %}
               {% endfor %}
             {% endfor %}
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> ba0872ed8a8be55c3f998c8f63ab1705ab977ab8
             <li class="sub-menu" aria-haspopup="true" aria-expanded="false">
               <a href="{{ link.url }}" class="dropdown-link {% if link.active or link.child_active %}active{% endif %}">{{ link.title }}
               <span class="icon-arrow-down"></span></a>
@@ -251,7 +295,11 @@
                           <a class="sub-link" href="{{ sub_sub_link.url }}">{{ sub_sub_link.title }}</a>
                         </li>
                       {% endfor %}
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> ba0872ed8a8be55c3f998c8f63ab1705ab977ab8
                       {% if count >= column_threshold and split == false %}
                         {% assign split = true %}
                         </ul>
@@ -265,6 +313,7 @@
           {% endif %}
         {% endfor %}
       </ul>
+<<<<<<< HEAD
   
       <ul class="menu right" style=" display: flex; float: none; list-style: none;">
         {% if settings.show_multiple_currencies %}
@@ -287,6 +336,8 @@
           <a href="/cart" class="icon-cart cart-button no-js-only"><span>{{ cart.item_count }}</span></a>
         </li>
       </ul>
+=======
+>>>>>>> ba0872ed8a8be55c3f998c8f63ab1705ab977ab8
     </div>
 
   </div>
