@@ -311,6 +311,7 @@
                 style="padding: 0.75rem;"
               >
                 {{- link.title -}}
+              </a>
             </li>
           {% else %}
             {% assign column_threshold = section.settings.dropdown_column_links %}
@@ -359,7 +360,7 @@
         {% endfor %}
       </ul>
 
-      <ul class="menu right" style=" display: flex; float: none;">
+      <ul class="menu right" style=" display: flex; float: none; list-style: none;">
         {% if settings.show_multiple_currencies %}
           <li class="currencies">
             {% include 'currencies-switcher' %}
