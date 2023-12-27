@@ -272,10 +272,10 @@
   "
   data-dropdown-position="{{ section.settings.dropdown_position }}"
 >
-  <div class="container" id="nav-container" style="width: 90%;">
+  <div class="container" id="nav-container" style="width: 94%; float: right; margin-right: 2%">
     <div
       class="three columns logo {% if section.settings.logo_home != nil %}secondary-logo--true{% endif %}"
-      style="float: left"
+      style="float: left; width: 20%; max-width: 205px; margin: 0px;"
     >
       <a href="{{ shop.url }}" title="{{ shop.name }}">
         {% if section.settings.logo != null or section.settings.logo_home != null %}
@@ -298,7 +298,7 @@
 
     <div
       class="thirteen columns nav mobile_hidden"
-      style="width: 72%; float: right; display: flex; justify-content: space-between;"
+      style="width: 75%; margin: 0px; float: right; display: flex; justify-content: space-between;"
     >
       <ul class="menu {{ section.settings.menu_alignment }}" role="navigation" style="flex-grow: 1;">
         {% assign main_menu = linklists[section.settings.main_linklist] %}
