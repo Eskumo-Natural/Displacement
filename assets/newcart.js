@@ -1,0 +1,138 @@
+// TODO: Allow it to parse all Color Types like hsl(a)...
+/**
+ * Converts a CSS Color Value into an array in the format of RGBA.
+ * This makes it easier to manipulate the colors of the HTML Element.
+ * This function only know how to parse HEX & RGB(A) values.
+ * 
+ * To convert back into an value CSS understands just do this: `'rgba(' + color.join(', ') + ')'`
+ *
+ * @author Errorbot1122
+ * @param {string} colorValue The extracted CSS Value from a property that needs a color as input
+ * @returns {number[]} The colors in a [Red, Green, Blue, Alpha] with all values mapped to a range between [0-255] EXCEPT for the Alpha witch is [0-1]
+ */
+function parseCSSColor(colorValue) {
+  let colorData
+
+  // Checks for rgb() / rgba() values
+  if (colorValue.startsWith('rgb')) {
+    const rawColorData = colorValue.replace(/rgba?\(|\)/g, '') // Remove unnecessary data that is not color data
+    colorData = rawColorData.split(', ')
+  }
+
+  // Check for Hex values
+  else if (colorValue.startsWith('#')) {
+    const rawColorData = colorValue.shift() // Remove unnecessary data that is not color data
+    const colorHexParts = rawColorData.match(/.{2}/) // Split the hex into its rgb(a) parts
+
+    // Convert the hex into normal numbers from 0-255
+    colorData = colorHexParts.map(hexPart => parseInt(hexPart, 16))
+  }
+
+  // Unknown data
+  else { throw Error(`Unknown / invalid CSS value! Got '${colorValue}'`) }
+
+  if (colorData.length < 3) { colorData.push(255) } // Full opacity
+  colorData[3] /= 255 // Map the last value between 0-1
+
+  return colorData
+}
+
+/**
+ * Goals:
+ *   [X] Make the cart take the full width of the screen when on mobile
+ *   [X] Make Cart BG fully opaque
+ *   [X] Make Cart Quantity editor bigger for mobile
+ *   [X] Give more space for the product text for mobile
+ *   [X Make product image bigger for mobile
+ */
+function updateCartStyles() {
+  const cartContainer = document.getElementById('cart')
+  const cartContainerStyle = window.getComputedStyle(cartContainer) // Get the styles reference later
+
+  // Epic Media Queries B)
+  const isSmallScreen = window.innerWidth <= 798
+  const isReallySmallScreen = window.innerWidth <= 400
+
+  /**** FULL PAGE /W MOBILE ****/
+  cartContainer.style.setProperty('width', '100%') // Override old width with the new one
+  cartContainer.style.setProperty('max-width', 'none') // Remove restrictions stopping it from taking the whole screen
+
+  // Lest undo that real quick... (Make sure i doesn't take the full screen when on the big screen)
+  if (!isSmallScreen) { cartContainer.style.setProperty('max-width', '440px') }
+
+  /**** BG OPAQUE ****/ 
+  // Get the color current color data
+  const cartRawColor = cartContainerStyle.getPropertyValue('background-color')
+  const cartColor = parseCSSColor(cartRawColor)
+  
+  cartColor[3] = 1 // Turn the color opaque
+
+  // Update the new color
+  cartContainer.style.setProperty('background-color', 'rgba(' + cartColor.join(', ') + ')') // Override old color with the new one
+
+
+  // Per item stuffs //
+  const cartItems = Array.from(cartContainer.getElementsByClassName('cart_item')) // (Convert it into an array to be able to use forEach)
+
+  cartItems.forEach(cartItem => {
+    
+    /**** BIGGER ITEM COUNTER ****/
+    const itemCounterContainer = cartItem.getElementsByTagName("p")[0]
+    itemCounterContainer.style.setProperty("display", "flex") // This is for later...
+    itemCounterContainer.style.setProperty("right", "1rem")
+
+    // First lets fix the input //
+    const itemCounterInput = itemCounterContainer.getElementsByTagName("input")[0]
+
+    // Force its size to be normal
+    itemCounterInput.style.setProperty("width", (isSmallScreen && !isReallySmallScreen) ? '48px' : '36px' )
+    itemCounterInput.style.setProperty("height", (isSmallScreen && !isReallySmallScreen) ? "60px" : '36px' )
+
+    // Update the position so it looks normal
+    itemCounterInput.style.setProperty("top", (isSmallScreen && !isReallySmallScreen) ? "-30px" : '-15px' )
+    itemCounterInput.style.setProperty("margin", (isSmallScreen && !isReallySmallScreen) ? "0px 10px" : "0px 5px" )
+
+    // Do Button Stuffs //
+    const itemCounterButtons = Array.from(itemCounterContainer.getElementsByTagName("span"))
+    itemCounterButtons.forEach(button => {
+      button.style.setProperty("display", "block")
+      
+      button.style.setProperty("transform", isReallySmallScreen ? "scale(1)" : "scale(1.5)") // Make the button BIGGER!!!
+
+      button.style.setProperty("width", isReallySmallScreen ? "30px" : "40px")
+      button.style.setProperty("height", isReallySmallScreen ? "30px" : "40px")
+    })
+    
+    /**** FIX PRODUCT TEXT ****/
+    const itemCounterSize = itemCounterContainer.clientWidth
+    const itemInfoContainer = cartItem.getElementsByTagName("a")[0]
+    itemInfoContainer.style.setProperty("display", "flex") // This is for later... again...
+
+    // Recreate the document effects from the counter (Fixes text overlapping /w counter on small screen)
+    itemInfoContainer.style.setProperty("margin-right", `calc(${itemCounterSize}px + 1rem)`)
+    itemInfoContainer.style.setProperty("padding-right", "1rem")
+
+    // Make text use as much space as... i make sense ig...
+    const itemTextInfoContainer = itemInfoContainer.getElementsByClassName("item_info")[0]
+    itemTextInfoContainer.style.setProperty("max-width", "100%")
+
+    // Make text gain ellipses if to small (Later...)
+    // itemTextInfoContainer.style.setProperty("min-width", "200px")
+    // itemTextInfoContainer.style.setProperty("text-overflow", "ellipsis")
+
+    /**** MAKE THE IMAGE BIGGER ****/
+    const itemImageContainer = itemInfoContainer.getElementsByClassName("cart_image")[0]
+    itemImageContainer.style.setProperty("width", "100%")
+
+    // Make sure the image doesn't get TOOOOOOOOOOOOOO small
+    itemImageContainer.style.setProperty("max-width", "100px")
+    itemImageContainer.style.setProperty("min-width", "70px")
+  })
+}
+
+/* Epic Events B) */
+window.addEventListener('load', updateCartStyles) // Run when page fully loads
+
+window.addEventListener('resize', updateCartStyles) // Update on screen resize (makes it responsive)
+
+setInterval(updateCartStyles, 500) // (fixes app.js messing up stuff :c )
