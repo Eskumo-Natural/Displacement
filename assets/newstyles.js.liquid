@@ -43,7 +43,7 @@ function parseCSSColor(colorValue) {
  *   [X] Make Cart BG fully opaque
  *   [X] Make Cart Quantity editor bigger for mobile
  *   [X] Give more space for the product text for mobile
- *   [X Make product image bigger for mobile
+ *   [X] Make product image bigger for mobile
  */
 function updateCartStyles() {
   const cartContainer = document.getElementById('cart')
@@ -130,9 +130,30 @@ function updateCartStyles() {
   })
 }
 
+/**
+ * Goals:
+ *   [ ] Make the slideshow arrows have more contrast 
+ */
+function updateSlideshowStyles() {
+  /**** HIGHER CONTRAST NAV ARROWS ****/
+  const slideshowNavButtons = Array.from(document.querySelectorAll("ul.flex-direction-nav li a span"))
+
+  slideshowNavButtons.forEach(slideshowNavButton => {
+    console.log("EEEEEEEEEEEEEEE")
+    slideshowNavButton.style.setProperty("color", "{{ settings.slideshow_btn_color }}")
+    slideshowNavButton.style.setProperty("background-color", "{{ settings.slideshow_btn_bg_color }}")
+
+    slideshowNavButton.style.setProperty("border-radius", "100%") // (Fix the background going outside of the button)
+  })
+}
+
+function updateGlobalStyles() {
+  updateSlideshowStyles()
+  updateCartStyles()
+}
+
 /* Epic Events B) */
-window.addEventListener('load', updateCartStyles) // Run when page fully loads
+window.addEventListener('load', updateGlobalStyles) // Run when page fully loads
+window.addEventListener('resize', updateGlobalStyles) // Update on screen resize (makes it responsive)
 
-window.addEventListener('resize', updateCartStyles) // Update on screen resize (makes it responsive)
-
-setInterval(updateCartStyles, 500) // (fixes app.js messing up stuff :c )
+setInterval(updateGlobalStyles, 500) // (fixes app.js messing up stuff :c )

@@ -1,25 +1,39 @@
-<!DOCTYPE html>
-<!--[if lt IE 7 ]><html class="ie ie6" lang="{{ shop.locale }}"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="{{ shop.locale }}"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="{{ shop.locale }}"> <![endif]-->
-<!--[if IE 9 ]><html class="ie ie9" lang="{{ shop.locale }}"> <![endif]-->
-<!--[if (gte IE 10)|!(IE)]><!--><html lang="{{ shop.locale }}"> <!--<![endif]-->
+<!doctype html>
+<!--[if lt IE 7 ]> <html class="ie ie6" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if IE 7 ]> <html class="ie ie7" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if IE 8 ]> <html class="ie ie8" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if IE 9 ]> <html class="ie ie9" lang="{{ shop.locale }}"> <![endif]-->
+<!-- [if (gte IE 10)|!(IE)]><! -->
+<html lang="{{ shop.locale }}">
+  <!-- <![endif] -->
   <head>
- <!-- Added by TAPITA SEO SCHEMA-->
-{% if content_for_header contains 'tapita-seo-script-tags' %}
-  {% include 'tapita-seo-schema' %}
-{% endif %}
-<!-- /Added by TAPITA SEO SCHEMA --> 
+    <!-- Added by TAPITA SEO SCHEMA -->
+    {% if content_for_header contains 'tapita-seo-script-tags' %}
+      {% include 'tapita-seo-schema' %}
+    {% endif %}
+    <!-- /Added by TAPITA SEO SCHEMA -->
 
     <meta charset="utf-8">
     <meta http-equiv="cleartype" content="on">
     <meta name="robots" content="index,follow">
 
     {% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %}{% endif %}
-    <title>{% if template contains "index" %}{{ page_title }}{% else %}{{ page_title }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}{% endif %}</title>
+    <title>
+      {% if template contains 'index' -%}
+        {{- page_title -}}
+      {%- else -%}
+        {{- page_title -}}
+        {%- if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags }}{% endif -%}
+        {%- if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}{% endif -%}
+        {%- unless page_title contains shop.name %} - {{ shop.name }}{% endunless -%}
+      {%- endif %}
+    </title>
 
     {% if page_description %}
-      <meta name="description" content="{{ page_description | escape }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags | escape }}.{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}.{% endif %}" />
+      <meta
+        name="description"
+        content="{{ page_description | escape }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags | escape }}.{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}.{% endif %}"
+      >
     {% endif %}
 
     {% include 'social-meta-info' %}
@@ -40,21 +54,21 @@
     <!-- Stylesheets for Parallax 3.5.3 -->
     {{ 'styles.scss.css' | asset_url | stylesheet_tag }}
 
-    {% if settings.favicon != nil %}
+    {% if settings.favicon != null %}
       <link rel="shortcut icon" type="image/x-icon" href="{{ settings.favicon | img_url: '32x32' }}">
     {% else %}
       <link rel="shortcut icon" type="image/x-icon" href="{{ 'favicon.png' | asset_url }}">
     {% endif %}
 
-    <link rel="canonical" href="{{ canonical_url }}" />
+    <link rel="canonical" href="{{ canonical_url }}">
 
     {% if template contains 'customer' %}
-      {{ "shopify_common.js" | shopify_asset_url | script_tag }}
-      {{ "customer_area.js"  | shopify_asset_url | script_tag }}
+      {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+      {{ 'customer_area.js' | shopify_asset_url | script_tag }}
     {% endif %}
 
     {{ 'app.js' | asset_url | script_tag }}
-    {{ 'newcart.js' | asset_url | script_tag }}
+    {{ 'newstyles.js' | asset_url | script_tag }}
 
     <!--[if lte IE 8]>
       {{ 'ie.css' | asset_url | stylesheet_tag }}
@@ -65,8 +79,9 @@
 
     <noscript>
       <style>
-
-        .slides > li:first-child { display: block; }
+        .slides > li:first-child {
+          display: block;
+        }
         .image__fallback {
           width: 100vw;
           display: block !important;
@@ -100,7 +115,7 @@
         .animate_down {
           opacity: 1;
         }
-        .flexslider .slides>li {
+        .flexslider .slides > li {
           display: block;
         }
         .product_section .product_form {
@@ -116,29 +131,29 @@
       </style>
     </noscript>
 
-   
-{% render 'pagefly-header' %}
- </head> 
+    {% render 'pagefly-header' %}
+  </head>
 
-  {% if template contains "index" %}
+  {% if template contains 'index' %}
     {% assign feature_image = true %}
-  {% elsif template contains "collection" %}
+  {% elsif template contains 'collection' %}
     {% assign feature_image = true %}
-  {% elsif template contains "blog" %}
+  {% elsif template contains 'blog' %}
     {% assign feature_image = true %}
-  {% elsif template contains "article" %}
+  {% elsif template contains 'article' %}
     {% assign feature_image = true %}
-  {% elsif template contains "contact" %}
+  {% elsif template contains 'contact' %}
     {% assign feature_image = true %}
-  {% elsif template contains "banner" %}
+  {% elsif template contains 'banner' %}
     {% assign feature_image = true %}
   {% else %}
     {% assign feature_image = false %}
   {% endif %}
 
-  <body class="{{ template | replace: '.', '-' | handle }} {% if feature_image %}feature_image{% endif %}"
-    data-money-format="{{ shop.money_format }}">
-
+  <body
+    class="{{ template | replace: '.', '-' | handle }} {% if feature_image %}feature_image{% endif %}"
+    data-money-format="{{ shop.money_format }}"
+  >
     <div id="content_wrapper">
       {% section 'header' %}
 
@@ -154,11 +169,19 @@
           <div class="ten columns offset-by-three center">
             <form action="/search">
               {% if settings.search_option != 'everything' %}
-                <input type="hidden" name="type" value="product" />
+                <input type="hidden" name="type" value="product">
               {% endif %}
               <div class="search-close"><span class="icon-close"></span></div>
               <span class="icon-search search-submit"></span>
-              <input type="text" name="q" placeholder="{{ 'general.search.placeholder_with_shop_name' | t: shop_name: shop.name }}" value="{% if search and search.results.first.price %}{{ search.terms }}{% endif %}" autocapitalize="off" autocomplete="off" autocorrect="off" />
+              <input
+                type="text"
+                name="q"
+                placeholder="{{ 'general.search.placeholder_with_shop_name' | t: shop_name: shop.name }}"
+                value="{% if search and search.results.first.price %}{{ search.terms }}{% endif %}"
+                autocapitalize="off"
+                autocomplete="off"
+                autocorrect="off"
+              >
             </form>
           </div>
         </div>
@@ -174,14 +197,22 @@
     {% include 'newsletter-popup' %}
     {% include 'currencies' %}
     {% if settings.disqus_enabled %}
-      {% if template contains "blog" or template contains "article" or template contains "index" %}
+      {% if template contains 'blog' or template contains 'article' or template contains 'index' %}
         <script id="dsq-count-scr" src="//{{ settings.disqus_shortname }}.disqus.com/count.js" async></script>
       {% endif %}
     {% endif %}
-  <!-- BEEKETINGSCRIPT CODE START -->{% include 'bk-tracking' %}<!-- BEEKETINGSCRIPT CODE END -->{% render 'paywhirl-main' %}
+    <!-- BEEKETINGSCRIPT CODE START -->
+    {% include 'bk-tracking' %}
+    <!-- BEEKETINGSCRIPT CODE END -->
+    {% render 'paywhirl-main' %}
 
-{% include 'stamped-rewards-init' %}
+    {% include 'stamped-rewards-init' %}
 
-<script type="text/javascript" async="" src="https://bundle.enormapps.com/frontend/bundleapp/bundle.js" defer="defer"></script>
-</body>
+    <script
+      type="text/javascript"
+      async=""
+      src="https://bundle.enormapps.com/frontend/bundleapp/bundle.js"
+      defer="defer"
+    ></script>
+  </body>
 </html>
