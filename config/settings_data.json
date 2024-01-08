@@ -1849,18 +1849,18 @@
               "subtitle": "",
               "text_position": "right",
               "text_alignment": "right",
-              "button_label": "",
+              "button_label": "Try our CBD",
               "link": "shopify:\/\/collections\/cbd"
             }
           },
-          "7faf94c3-bba5-45ef-8b4f-5160e17193d2": {
+          "30668a6d-fbb1-4416-9229-cd3588f15917": {
             "type": "image",
             "settings": {
-              "image": "shopify:\/\/shop_images\/Women_flower.png",
-              "title": "ENJOY NATURE WITH LESS PAIN",
+              "image": "shopify:\/\/shop_images\/Untitled_10_x_8_in_7_x_5_in_copy.png",
+              "title": "YOU ARE MADE TO MOVE!",
               "subtitle": "",
-              "text_position": "center",
-              "text_alignment": "center",
+              "text_position": "left",
+              "text_alignment": "left",
               "button_label": "",
               "link": ""
             }
@@ -1873,7 +1873,7 @@
               "subtitle": "",
               "text_position": "right",
               "text_alignment": "right",
-              "button_label": "",
+              "button_label": "Try Our Oils",
               "link": "shopify:\/\/products\/cbd-massage-oil-2-oz-lavender-scent"
             }
           },
@@ -1900,27 +1900,14 @@
               "button_label": "",
               "link": ""
             }
-          },
-          "30668a6d-fbb1-4416-9229-cd3588f15917": {
-            "type": "image",
-            "settings": {
-              "image": "shopify:\/\/shop_images\/Untitled_10_x_8_in_7_x_5_in_copy.png",
-              "title": "YOU ARE MADE TO MOVE!",
-              "subtitle": "",
-              "text_position": "left",
-              "text_alignment": "left",
-              "button_label": "",
-              "link": ""
-            }
           }
         },
         "block_order": [
           "1596912718497-0",
-          "7faf94c3-bba5-45ef-8b4f-5160e17193d2",
+          "30668a6d-fbb1-4416-9229-cd3588f15917",
           "11510ffa-bbdb-4683-9c7d-8c3a7680dc15",
           "4a670316-e346-4ca3-8071-21fa914b9fd5",
-          "6e78ee08-8cb3-4a14-89eb-518f9b1275db",
-          "30668a6d-fbb1-4416-9229-cd3588f15917"
+          "6e78ee08-8cb3-4a14-89eb-518f9b1275db"
         ],
         "settings": {
           "slideshow_speed": 4,
