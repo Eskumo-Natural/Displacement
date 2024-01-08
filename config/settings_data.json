@@ -1847,22 +1847,10 @@
               "image": "shopify:\/\/shop_images\/Older_Gardner.png",
               "title": "DISCOVER A NEW WAY OF LIFE!",
               "subtitle": "",
-              "text_position": "center",
-              "text_alignment": "center",
+              "text_position": "right",
+              "text_alignment": "right",
               "button_label": "",
               "link": "shopify:\/\/collections\/cbd"
-            }
-          },
-          "11510ffa-bbdb-4683-9c7d-8c3a7680dc15": {
-            "type": "image",
-            "settings": {
-              "image": "shopify:\/\/shop_images\/gardener_soil__prep.png",
-              "title": "Don't Do Pain. Do You!",
-              "subtitle": "",
-              "text_position": "center",
-              "text_alignment": "center",
-              "button_label": "",
-              "link": "shopify:\/\/products\/cbd-massage-oil-2-oz-lavender-scent"
             }
           },
           "7faf94c3-bba5-45ef-8b4f-5160e17193d2": {
@@ -1877,14 +1865,26 @@
               "link": ""
             }
           },
+          "11510ffa-bbdb-4683-9c7d-8c3a7680dc15": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/gardener_soil__prep.png",
+              "title": "Don't Do Pain. Do You!",
+              "subtitle": "",
+              "text_position": "right",
+              "text_alignment": "right",
+              "button_label": "",
+              "link": "shopify:\/\/products\/cbd-massage-oil-2-oz-lavender-scent"
+            }
+          },
           "4a670316-e346-4ca3-8071-21fa914b9fd5": {
             "type": "image",
             "settings": {
               "image": "shopify:\/\/shop_images\/Eskumo_Fast_recovery.jpg",
               "title": "PUSH BEYOND YOUR LIMITS!",
               "subtitle": "",
-              "text_position": "center",
-              "text_alignment": "center",
+              "text_position": "right",
+              "text_alignment": "right",
               "button_label": "",
               "link": "shopify:\/\/products\/cbd-gummy-squares-750mg-30-ct-wild-berry"
             }
@@ -1895,8 +1895,8 @@
               "image": "shopify:\/\/shop_images\/Untitled_10_x_8_in_7_x_5_in.png",
               "title": "DO MORE!",
               "subtitle": "",
-              "text_position": "center",
-              "text_alignment": "center",
+              "text_position": "left",
+              "text_alignment": "left",
               "button_label": "",
               "link": ""
             }
@@ -1907,8 +1907,8 @@
               "image": "shopify:\/\/shop_images\/Untitled_10_x_8_in_7_x_5_in_copy.png",
               "title": "YOU ARE MADE TO MOVE!",
               "subtitle": "",
-              "text_position": "center",
-              "text_alignment": "center",
+              "text_position": "left",
+              "text_alignment": "left",
               "button_label": "",
               "link": ""
             }
@@ -1916,8 +1916,8 @@
         },
         "block_order": [
           "1596912718497-0",
-          "11510ffa-bbdb-4683-9c7d-8c3a7680dc15",
           "7faf94c3-bba5-45ef-8b4f-5160e17193d2",
+          "11510ffa-bbdb-4683-9c7d-8c3a7680dc15",
           "4a670316-e346-4ca3-8071-21fa914b9fd5",
           "6e78ee08-8cb3-4a14-89eb-518f9b1275db",
           "30668a6d-fbb1-4416-9229-cd3588f15917"
@@ -1925,7 +1925,7 @@
         "settings": {
           "slideshow_speed": 4,
           "parallax_effect": true,
-          "parallax_image_height": 600
+          "parallax_image_height": 660
         }
       },
       "1596916803170": {
