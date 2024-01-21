@@ -1855,6 +1855,7 @@
           },
           "30668a6d-fbb1-4416-9229-cd3588f15917": {
             "type": "image",
+            "disabled": true,
             "settings": {
               "image": "shopify:\/\/shop_images\/Untitled_10_x_8_in_7_x_5_in_copy.png",
               "title": "YOU ARE MADE TO MOVE!",
@@ -1885,7 +1886,7 @@
               "subtitle": "",
               "text_position": "right",
               "text_alignment": "right",
-              "button_label": "",
+              "button_label": "Try our Gummies",
               "link": "shopify:\/\/products\/cbd-gummy-squares-750mg-30-ct-wild-berry"
             }
           },
@@ -2157,7 +2158,6 @@
         "type": "shopify:\/\/apps\/tapita-seo-speed\/blocks\/app-embed\/cd37ca7a-40ad-4fdc-afd3-768701482209",
         "disabled": false,
         "settings": {
-          "tpt_seo_block": "{}"
         }
       }
     }
