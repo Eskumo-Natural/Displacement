@@ -1332,6 +1332,8 @@
     "btn_color": "#51ba65",
     "btn_hover_color": "#b8c6c6",
     "btn_text_color": "#ffffff",
+    "slideshow_btn_bg_color": "#ffffff",
+    "slideshow_btn_color": "#020000",
     "share_banner_color": "#f7feff",
     "table_styles_enabled": true,
     "border_color": "#b8c6c6",
