@@ -1908,11 +1908,11 @@
             "type": "image",
             "settings": {
               "image": "shopify:\/\/shop_images\/Untitled_design_2.png",
-              "title": "New Look Same Great  produts",
+              "title": "New Look Same Great Products",
               "subtitle": "",
               "text_position": "center",
               "text_alignment": "center",
-              "button_label": "See them for youself",
+              "button_label": "See them for yourself",
               "link": "shopify:\/\/collections\/all"
             }
           }
@@ -1928,7 +1928,7 @@
         "settings": {
           "slideshow_speed": 4,
           "parallax_effect": true,
-          "parallax_image_height": 700
+          "parallax_image_height": 760
         }
       },
       "1596916803170": {
@@ -2112,11 +2112,11 @@
         "settings": {
           "image": "shopify:\/\/shop_images\/IMG_4039.jpg",
           "layout": "left",
-          "title": "NEW CBD CAPSULES 2400mg (60ct)",
+          "title": "New Look Same Quality Products",
           "text": "<p>*Fast and easy way to get a daily dose of CBD.<\/p><p>*The capsules are made from raw, full-spectrum hemp plants with less than 0.3% THC.<\/p><p>*Available in 40mg high potency dosages.<\/p><p>*Sweet taste, easy to swallow. <\/p><p>*You don't have to deal with the taste or feel of oil if you don’t like it.<\/p><p>*Get your dose of CBD just by popping a capsule, no muss, no fuss.<\/p><p><\/p>",
           "text_alignment": "left",
           "button_label": "BUY NOW",
-          "button_link": "shopify:\/\/products\/cbd-capsules-2400mg-60ct"
+          "button_link": "shopify:\/\/collections\/all"
         }
       },
       "contact-template": {
