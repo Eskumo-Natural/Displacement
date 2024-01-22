@@ -4,8 +4,8 @@
     "theme_name": "Parallax",
     "theme_author": "Out of the Sandbox",
     "theme_version": "3.5.3",
-    "theme_documentation_url": "https:\/\/help.outofthesandbox.com/",
-    "theme_support_url": "https:\/\/help.outofthesandbox.com\/hc\/en-us\/requests\/new"
+    "theme_documentation_url": "https://help.outofthesandbox.com/",
+    "theme_support_url": "https://help.outofthesandbox.com/hc/en-us/requests/new"
   },
   {
     "name": "Colors",
@@ -158,6 +158,18 @@
         "type": "color",
         "id": "btn_text_color",
         "label": "Button label",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "slideshow_btn_bg_color",
+        "label": "Slideshow button background",
+        "default": "#020000"
+      },
+      {
+        "type": "color",
+        "id": "slideshow_btn_color",
+        "label": "Slideshow button outline",
         "default": "#FFFFFF"
       },
       {
@@ -476,7 +488,6 @@
             "label": "Wide"
           },
           {
-
             "value": "short",
             "label": "Short"
           },
@@ -778,7 +789,7 @@
       {
         "type": "checkbox",
         "id": "collection_swatches",
-        "label": "Show color swatches ([?](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115006911447-Enabling-Color-Swatches-for-Products))"
+        "label": "Show color swatches ([?](https://help.outofthesandbox.com/hc/en-us/articles/115006911447-Enabling-Color-Swatches-for-Products))"
       },
       {
         "type": "header",
@@ -805,15 +816,15 @@
         "label": "Enable \"back in stock request\" form"
       },
       {
-         "type": "richtext",
-         "id": "notify_me_description",
-         "label": "\"Back in stock request\" form text",
-         "default": "<p>Notify me when this product is available:</p>"
+        "type": "richtext",
+        "id": "notify_me_description",
+        "label": "\"Back in stock request\" form text",
+        "default": "<p>Notify me when this product is available:</p>"
       },
       {
         "type": "radio",
         "id": "product_form_style",
-        "label": "Options style ([?](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115006911447-Enabling-Color-Swatches-for-Products))",
+        "label": "Options style ([?](https://help.outofthesandbox.com/hc/en-us/articles/115006911447-Enabling-Color-Swatches-for-Products))",
         "options": [
           {
             "value": "dropdown",
@@ -835,7 +846,7 @@
       {
         "type": "page",
         "id": "size_chart",
-        "label": "Size chart ([?](https:\/\/help.outofthesandbox.com\/hc\/en-us\/articles\/115006910707-Using-the-Size-Chart-Sections-themes-))"
+        "label": "Size chart ([?](https://help.outofthesandbox.com/hc/en-us/articles/115006910707-Using-the-Size-Chart-Sections-themes-))"
       },
       {
         "type": "header",
@@ -967,7 +978,7 @@
         "id": "show_payment_button",
         "label": "Show dynamic checkout button",
         "default": false,
-        "info": "Lets customers check out directly using a familiar payment method. [Learn more](https:\/\/help.shopify.com\/manual\/using-themes\/change-the-layout\/dynamic-checkout)"
+        "info": "Lets customers check out directly using a familiar payment method. [Learn more](https://help.shopify.com/manual/using-themes/change-the-layout/dynamic-checkout)"
       },
       {
         "type": "header",
@@ -975,7 +986,7 @@
       },
       {
         "type": "paragraph",
-        "content": "Before enabling reviews you will need to install the free [Shopify Product Reviews](https:\/\/apps.shopify.com\/product-reviews) app."
+        "content": "Before enabling reviews you will need to install the free [Shopify Product Reviews](https://apps.shopify.com/product-reviews) app."
       },
       {
         "type": "checkbox",
@@ -1081,7 +1092,7 @@
         "type": "richtext",
         "id": "tos_richtext",
         "label": "Agree to terms text",
-        "default": "<p>I Agree with the Terms & Conditions<\/p>"
+        "default": "<p>I Agree with the Terms & Conditions</p>"
       },
       {
         "type": "header",
@@ -1227,67 +1238,67 @@
         "type": "text",
         "id": "twitter_link",
         "label": "Twitter link",
-        "info": "https:\/\/twitter.com\/shopify"
+        "info": "https://twitter.com/shopify"
       },
       {
         "type": "text",
         "id": "facebook_link",
         "label": "Facebook link",
-        "info": "https:\/\/facebook.com\/shopify"
+        "info": "https://facebook.com/shopify"
       },
       {
         "type": "text",
         "id": "google_link",
         "label": "Google+ link",
-        "info": "https:\/\/plus.google.com\/+shopify"
+        "info": "https://plus.google.com/+shopify"
       },
       {
         "type": "text",
         "id": "youtube_link",
         "label": "YouTube link",
-        "info": "https:\/\/youtube.com\/user\/shopify"
+        "info": "https://youtube.com/user/shopify"
       },
       {
         "type": "text",
         "id": "vimeo_link",
         "label": "Vimeo link",
-        "info": "https:\/\/vimeo.com\/shopify"
+        "info": "https://vimeo.com/shopify"
       },
       {
         "type": "text",
         "id": "pinterest_link",
         "label": "Pinterest link",
-        "info": "https:\/\/pinterest.com\/shopify"
+        "info": "https://pinterest.com/shopify"
       },
       {
         "type": "text",
         "id": "tumblr_link",
         "label": "Tumblr link",
-        "info": "https:\/\/shopify.tumblr.com\/"
+        "info": "https://shopify.tumblr.com/"
       },
       {
         "type": "text",
         "id": "instagram_link",
         "label": "Instagram link",
-        "info": "https:\/\/instagram.com\/shopify"
+        "info": "https://instagram.com/shopify"
       },
       {
         "type": "text",
         "id": "snapchat_link",
         "label": "Snapchat link",
-        "info": "https:\/\/www.snapchat.com\/add\/shopify"
+        "info": "https://www.snapchat.com/add/shopify"
       },
       {
         "type": "text",
         "id": "houzz_link",
         "label": "Houzz link",
-        "info": "https:\/\/www.houzz.com\/shopify"
+        "info": "https://www.houzz.com/shopify"
       },
       {
         "type": "text",
         "id": "linkedin_link",
         "label": "LinkedIn link",
-        "info": "https:\/\/linkedin.com\/company\/shopify"
+        "info": "https://linkedin.com/company/shopify"
       },
       {
         "type": "text",
@@ -1302,13 +1313,13 @@
       {
         "type": "checkbox",
         "id": "disqus_enabled",
-        "label": "Enable [DISQUS](http:\/\/disqus.com\/) comments",
+        "label": "Enable [DISQUS](http://disqus.com/) comments",
         "info": "Replaces Shopify's default comments"
       },
       {
         "type": "text",
         "id": "disqus_shortname",
-        "label": "[DISQUS](http:\/\/disqus.com\/) shortname"
+        "label": "[DISQUS](http://disqus.com/) shortname"
       }
     ]
   },
@@ -1343,7 +1354,7 @@
         "id": "supported_currencies",
         "label": "Supported currencies",
         "default": "USD CAD INR GBP AUD EUR JPY",
-        "info": "Use the country's ISO [currency code](http:\/\/www.xe.com\/iso4217.php). Separate your currency codes with a space."
+        "info": "Use the country's ISO [currency code](http://www.xe.com/iso4217.php). Separate your currency codes with a space."
       },
       {
         "type": "text",

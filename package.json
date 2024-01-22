@@ -1,0 +1,27 @@
+{
+  "name": "eskumo-displacement-theme",
+  "version": "0.1.2",
+  "description": "The current theme used for the Eskumo website (As of 2024)... SOON TO BE FAZED OUT!",
+  "main": "layout/theme.liquid",
+  "scripts": {
+    "dev": "npm install & shopify theme dev --store eskumo",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eskumo-Natural/Displacement.git"
+  },
+  "keywords": [
+    "shopify"
+  ],
+  "author": "Eskumo IT Team (Currently just Errorbot1122)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eskumo-Natural/Displacement/issues"
+  },
+  "homepage": "https://github.com/Eskumo-Natural/Displacement#readme",
+  "devDependencies": {
+    "@shopify/cli": "^3.53.0",
+    "@shopify/theme": "^3.53.0"
+  }
+}
