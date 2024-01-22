@@ -1843,6 +1843,18 @@
       "1596912718497": {
         "type": "slideshow",
         "blocks": {
+          "image_RrhJ6X": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Untitled_design_2.png",
+              "title": "New Look, Same Great Products!",
+              "subtitle": "",
+              "text_position": "center",
+              "text_alignment": "center",
+              "button_label": "See them for yourself...",
+              "link": "shopify:\/\/collections\/cbd"
+            }
+          },
           "1596912718497-0": {
             "type": "image",
             "settings": {
@@ -1903,27 +1915,15 @@
               "button_label": "",
               "link": ""
             }
-          },
-          "image_RrhJ6X": {
-            "type": "image",
-            "settings": {
-              "image": "shopify:\/\/shop_images\/Untitled_design_2.png",
-              "title": "New Look, Same Great Products!",
-              "subtitle": "",
-              "text_position": "center",
-              "text_alignment": "center",
-              "button_label": "See them for yourself...",
-              "link": "shopify:\/\/collections\/cbd"
-            }
           }
         },
         "block_order": [
+          "image_RrhJ6X",
           "1596912718497-0",
           "30668a6d-fbb1-4416-9229-cd3588f15917",
           "11510ffa-bbdb-4683-9c7d-8c3a7680dc15",
           "4a670316-e346-4ca3-8071-21fa914b9fd5",
-          "6e78ee08-8cb3-4a14-89eb-518f9b1275db",
-          "image_RrhJ6X"
+          "6e78ee08-8cb3-4a14-89eb-518f9b1275db"
         ],
         "settings": {
           "slideshow_speed": 4,
