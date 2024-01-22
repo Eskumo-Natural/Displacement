@@ -1901,6 +1901,18 @@
               "button_label": "",
               "link": ""
             }
+          },
+          "image_RrhJ6X": {
+            "type": "image",
+            "settings": {
+              "image": "shopify:\/\/shop_images\/Untitled_design.png",
+              "title": "New Look Same Great  produts",
+              "subtitle": "",
+              "text_position": "center",
+              "text_alignment": "center",
+              "button_label": "See them for youself",
+              "link": "shopify:\/\/collections\/all"
+            }
           }
         },
         "block_order": [
@@ -1908,7 +1920,8 @@
           "30668a6d-fbb1-4416-9229-cd3588f15917",
           "11510ffa-bbdb-4683-9c7d-8c3a7680dc15",
           "4a670316-e346-4ca3-8071-21fa914b9fd5",
-          "6e78ee08-8cb3-4a14-89eb-518f9b1275db"
+          "6e78ee08-8cb3-4a14-89eb-518f9b1275db",
+          "image_RrhJ6X"
         ],
         "settings": {
           "slideshow_speed": 4,
@@ -2095,7 +2108,7 @@
       "1663731664e3eab864": {
         "type": "image-text",
         "settings": {
-          "image": "shopify:\/\/shop_images\/Extra_Strength_Softgels.jpg",
+          "image": "shopify:\/\/shop_images\/IMG_4039.jpg",
           "layout": "left",
           "title": "NEW CBD CAPSULES 2400mg (60ct)",
           "text": "<p>*Fast and easy way to get a daily dose of CBD.<\/p><p>*The capsules are made from raw, full-spectrum hemp plants with less than 0.3% THC.<\/p><p>*Available in 40mg high potency dosages.<\/p><p>*Sweet taste, easy to swallow. <\/p><p>*You don't have to deal with the taste or feel of oil if you don’t like it.<\/p><p>*Get your dose of CBD just by popping a capsule, no muss, no fuss.<\/p><p><\/p>",
